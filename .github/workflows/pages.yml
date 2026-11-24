@@ -1,1 +1,126 @@
+# Publicerar golfo-app på GitHub Pages: supportsidan och Golfos banfiler (under /data).
+#
+# - Push till main: sidan publiceras om med de senast byggda banfilerna.
+# - Varje måndag natt (och manuellt via "Run workflow"): banfilerna byggs om från
+#   OpenStreetMap (Geofabrik-exporter, regionerna i tools/regions.txt) och sparas i
+#   grenen course-data, som skrivs över varje gång så att repot inte växer.
+#
+# Inställning som krävs en gång: Settings → Pages → Build and deployment → Source: GitHub Actions.
+# Banfilerna: © OpenStreetMap contributors, Open Database License (ODbL).
 
+name: Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 2 * * 1"
+  workflow_dispatch:
+    inputs:
+      rebuild:
+        description: "Build course data from OpenStreetMap"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  course-data:
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.rebuild)
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y osmium-tool
+          pip install shapely
+
+      - name: Build course files
+        run: |
+          set -euo pipefail
+          mkdir -p work data
+          : > work/manifest.jsonl
+          # Varje steg avbryter regionen vid fel (set -e gäller inte inne i "if !").
+          build_region() {
+            curl -sSfL --retry 3 "https://download.geofabrik.de/$1-latest.osm.pbf" -o work/region.osm.pbf || return 1
+            osmium tags-filter work/region.osm.pbf \
+              nwr/leisure=golf_course w/golf nwr/natural=water \
+              -o work/filtered.osm.pbf --overwrite || return 1
+            rm -f work/region.osm.pbf
+            osmium export work/filtered.osm.pbf -f geojsonseq -a type,id \
+              --geometry-types=linestring,polygon -o work/region.geojsonseq --overwrite || return 1
+            rm -f work/filtered.osm.pbf
+            python3 tools/build_course_data.py region \
+              --input work/region.geojsonseq --out data --manifest work/manifest.jsonl || return 1
+            rm -f work/region.geojsonseq
+          }
+          grep -v '^#' tools/regions.txt | grep -v '^\s*$' | while read -r name path; do
+            echo "== $name"
+            # En region som misslyckas (t.ex. tillfälligt nätverksfel) stoppar inte de andra.
+            if ! build_region "$path"; then
+              echo "::warning::Course data for $name failed"
+              rm -f work/region.osm.pbf work/filtered.osm.pbf work/region.geojsonseq
+            fi
+          done
+          regions=$(grep -v '^#' tools/regions.txt | grep -v '^\s*$' | awk '{print $1}' | paste -sd, -)
+          python3 tools/build_course_data.py tiles --out data --manifest work/manifest.jsonl --regions "$regions"
+
+      - name: Save to branch course-data
+        run: |
+          set -euo pipefail
+          cd data
+          git init -q -b course-data
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Course data $(date -u +%Y-%m-%d) – © OpenStreetMap contributors (ODbL)"
+          git push -f -q "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" course-data
+
+  deploy:
+    needs: course-data
+    if: always() && (needs.course-data.result == 'success' || needs.course-data.result == 'skipped')
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get course data
+        id: data
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          ref: course-data
+          path: _course-data
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          rsync -a --exclude '.git' --exclude '.github' --exclude 'tools' \
+            --exclude '_site' --exclude '_course-data' ./ _site/
+          if [ -d _course-data ]; then
+            mkdir -p _site/data
+            rsync -a --exclude '.git' _course-data/ _site/data/
+          fi
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
