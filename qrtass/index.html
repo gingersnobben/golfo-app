@@ -288,6 +288,21 @@
     }
     footer .logo-name { font-size: 1.3rem; }
     footer a { font-weight: 800; color: var(--terracotta-dark); }
+    footer .owner-link {
+      display: inline-block;
+      margin-bottom: 22px;
+      padding: 10px 16px;
+      border: 2px dashed var(--peach);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--brown-soft);
+      font-weight: 600;
+      font-size: .9rem;
+      text-decoration: none;
+      transition: border-color .15s ease, color .15s ease;
+    }
+    footer .owner-link strong { color: var(--terracotta-dark); }
+    footer .owner-link:hover, footer .owner-link:focus-visible { border-color: var(--terracotta); color: var(--brown); }
 
     @media (min-width: 560px) {
       .hero h1 { font-size: 2.4rem; }
@@ -467,6 +482,8 @@
 
   <!-- ===== SIDFOT ===== -->
   <footer>
+    <!-- Ägarinloggning (dummy-länk) -->
+    <a class="owner-link" href="#">🔒 Är du Smillas ägare? <strong>Uppdatera sidan</strong></a>
     <div class="logo-name">QR<span class="paw">🐾</span>Tass</div>
     <p>En tryggare väg hem</p>
     <p style="margin-top:8px">Vill du också ha ett QR-halsband? Följ oss på
