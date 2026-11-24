@@ -154,8 +154,18 @@
       display: grid;
       place-items: center;
       overflow: hidden;
+      position: relative;
     }
-    .cat-portrait svg, .cat-portrait img { width: 100%; height: 100%; object-fit: cover; }
+    .cat-portrait svg { width: 100%; height: 100%; }
+    /* Fotot läggs ovanpå teckningen och beskärs runt. Justera object-position om ansiktet hamnar fel, t.ex. "50% 30%" */
+    .cat-portrait img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 40%;
+    }
     .hero h1 {
       font-family: "Fredoka", sans-serif;
       font-weight: 700;
@@ -313,7 +323,8 @@
       <span class="found-badge">🐾 Du har hittat mig!</span>
 
       <div class="cat-portrait">
-        <!-- Byt gärna ut mot ett riktigt foto: <img src="smilla.jpg" alt="Smilla"> -->
+        <!-- Foto: lägg en bild som heter katt.jpg i samma mapp som index.html. Saknas den visas teckningen. -->
+        <img src="katt.jpg" alt="Foto på katten Smilla" onerror="this.remove()">
         <svg viewBox="0 0 200 200" role="img" aria-label="Illustration av katten Smilla">
           <rect width="200" height="200" fill="#FFF6EC"/>
           <!-- kropp -->
