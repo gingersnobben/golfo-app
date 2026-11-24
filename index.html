@@ -1,1 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Golfo – Support and Privacy</title>
+<style>
+  :root { --green:#1f5f3f; --ink:#1c1c1e; --muted:#6b6b70; --bg:#f6f7f5; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:17px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color:var(--ink); background:var(--bg); }
+  header { background:var(--green); color:#fff; padding:48px 24px 40px; text-align:center; }
+  header h1 { margin:0 0 6px; font-size:40px; letter-spacing:-0.5px; }
+  header p { margin:0; opacity:.85; }
+  nav { text-align:center; margin-top:18px; }
+  nav a { color:#fff; margin:0 12px; font-weight:600; text-decoration:none; border-bottom:1px solid rgba(255,255,255,.5); }
+  main { max-width:720px; margin:0 auto; padding:24px; }
+  section { background:#fff; border-radius:14px; padding:24px 28px; margin:24px 0; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+  h2 { margin-top:0; color:var(--green); }
+  h3 { margin-bottom:4px; }
+  a { color:var(--green); }
+  .muted { color:var(--muted); font-size:15px; }
+  footer { text-align:center; color:var(--muted); font-size:14px; padding:24px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Golfo</h1>
+  <p>Your golf round, one hole at a time.</p>
+  <nav><a href="#support">Support</a><a href="#privacy">Privacy</a></nav>
+</header>
+<main>
 
+<section id="support">
+  <h2>Support</h2>
+  <p>Questions, bugs or ideas? Email <a href="mailto:CONTACT_EMAIL">CONTACT_EMAIL</a> and include your iPhone model and iOS version. If you are testing through TestFlight, you can also send feedback with a screenshot directly from the TestFlight app.</p>
+
+  <h3>The course map doesn't show greens or holes</h3>
+  <p>Golfo uses OpenStreetMap, which is mapped by volunteers. Some courses are missing or only partly mapped. You can always place the green yourself with <em>Set green</em>, and Golfo remembers it for that course.</p>
+
+  <h3>The distance seems wrong</h3>
+  <p>Distances depend on your iPhone's GPS. Make sure Golfo is allowed to use your <strong>precise</strong> location (Settings → Privacy &amp; Security → Location Services → Golfo). Open sky works best.</p>
+
+  <h3>Where is my data?</h3>
+  <p>Your rounds are stored only on your iPhone. You can export them as a CSV file from the app.</p>
+</section>
+
+<section id="privacy">
+  <h2>Privacy Policy</h2>
+  <p class="muted">Last updated: 24 November 2026</p>
+
+  <p>Golfo is built to keep your golf data on your iPhone. There is no account, no advertising and no tracking.</p>
+
+  <h3>Data stored on your device</h3>
+  <p>Your rounds, scores, statistics, clubs and course notes (such as greens you have placed) are stored locally on your iPhone. They are not sent to us. Deleting the app deletes this data.</p>
+
+  <h3>Location</h3>
+  <p>Golfo uses your location while you use the app to show distances on the course map. To do this, information about the area around your position is sent to these services:</p>
+  <ul>
+    <li><strong>Golfo's website (GitHub Pages)</strong> – course map files for your area are downloaded from this site, which is hosted by GitHub.</li>
+    <li><strong>OpenStreetMap data servers (Overpass)</strong> – used if the course is not in Golfo's files.</li>
+    <li><strong>Open-Meteo</strong> – weather, wind and elevation for the area.</li>
+  </ul>
+  <p>These services receive the requested area and, like any website, your IP address. Golfo does not send your name or any account details. Golfo does not store your location history on a server.</p>
+
+  <h3>Apple Intelligence</h3>
+  <p>Round analysis and tips are created on your device with Apple's on-device models, where available.</p>
+
+  <h3>Analytics and crash reports</h3>
+  <p>Golfo has no analytics of its own. If you have chosen to share data with app developers in iOS, Apple may provide anonymous crash reports.</p>
+
+  <h3>Children</h3>
+  <p>Golfo does not knowingly collect personal data from anyone.</p>
+
+  <h3>Changes and contact</h3>
+  <p>If this policy changes, the new version is published on this page. Questions: <a href="mailto:CONTACT_EMAIL">CONTACT_EMAIL</a>.</p>
+</section>
+
+<section id="data">
+  <h2>Map data</h2>
+  <p>Course map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, available under the Open Database License (ODbL). Weather data by <a href="https://open-meteo.com/">Open-Meteo</a>.</p>
+</section>
+
+</main>
+<footer>© 2026 Golfo</footer>
+</body>
+</html>
