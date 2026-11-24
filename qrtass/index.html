@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Smilla har hittats! – QR🐾Tass</title>
+  <meta name="description" content="QR🐾Tass – En tryggare väg hem. Du har hittat Smilla, här når du hennes ägare.">
+  <meta name="theme-color" content="#E8875B">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #FFF6EC;
+      --paper: #FFFDF9;
+      --peach: #F9D9C3;
+      --terracotta: #E8875B;
+      --terracotta-dark: #C96A40;
+      --brown: #5B3A29;
+      --brown-soft: #8A6552;
+      --sage: #A8C3A0;
+      --sage-dark: #6F9468;
+      --shadow: 0 8px 24px rgba(91, 58, 41, 0.12);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Nunito", system-ui, sans-serif;
+      color: var(--brown);
+      background-color: var(--cream);
+      background-image:
+        radial-gradient(circle at 12% 18%, rgba(232,135,91,.10) 0 40px, transparent 41px),
+        radial-gradient(circle at 88% 42%, rgba(168,195,160,.16) 0 60px, transparent 61px),
+        radial-gradient(circle at 20% 80%, rgba(249,217,195,.6) 0 50px, transparent 51px);
+      background-attachment: fixed;
+      line-height: 1.55;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    /* ---------- Sidhuvud ---------- */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 246, 236, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 2px dashed var(--peach);
+      padding: 12px 16px;
+      padding-top: max(12px, env(safe-area-inset-top));
+    }
+    .header-inner {
+      max-width: 520px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .logo {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .logo-name {
+      font-family: "Fredoka", sans-serif;
+      font-weight: 700;
+      font-size: 1.75rem;
+      letter-spacing: .5px;
+      color: var(--terracotta-dark);
+    }
+    .logo-name .paw { font-size: 1.45rem; margin: 0 1px; }
+    .logo-slogan {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--brown-soft);
+      font-style: italic;
+    }
+    .tiktok-btn {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--brown);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: .9rem;
+      padding: 10px 14px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      transition: transform .15s ease, background .15s ease;
+    }
+    .tiktok-btn:hover, .tiktok-btn:focus-visible { background: var(--terracotta-dark); transform: translateY(-2px); }
+    .tiktok-btn svg { width: 18px; height: 18px; }
+
+    /* ---------- Layout ---------- */
+    main {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .card {
+      background: var(--paper);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px 20px;
+    }
+    h2 {
+      font-family: "Fredoka", sans-serif;
+      font-weight: 600;
+      font-size: 1.3rem;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      text-align: center;
+      padding-top: 26px;
+      background: linear-gradient(180deg, var(--peach) 0%, var(--paper) 62%);
+      position: relative;
+      overflow: hidden;
+    }
+    .found-badge {
+      display: inline-block;
+      background: var(--sage);
+      color: #2F4A2B;
+      font-weight: 800;
+      font-size: .85rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    .cat-portrait {
+      width: 190px;
+      height: 190px;
+      margin: 0 auto 10px;
+      border-radius: 50%;
+      background: var(--cream);
+      border: 6px solid #fff;
+      box-shadow: var(--shadow);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+    .cat-portrait svg, .cat-portrait img { width: 100%; height: 100%; object-fit: cover; }
+    .hero h1 {
+      font-family: "Fredoka", sans-serif;
+      font-weight: 700;
+      font-size: 2.1rem;
+      line-height: 1.15;
+      margin-top: 6px;
+    }
+    .hero h1 span { color: var(--terracotta-dark); }
+    .hero p.lead {
+      margin: 10px auto 0;
+      max-width: 34ch;
+      font-size: 1.05rem;
+      color: var(--brown-soft);
+    }
+
+    /* ---------- Knappar ---------- */
+    .actions {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1.1rem;
+      padding: 16px 18px;
+      border-radius: 18px;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+      min-height: 56px;
+    }
+    .btn:active { transform: scale(.98); }
+    .btn-primary {
+      background: var(--terracotta);
+      color: #fff;
+      box-shadow: 0 6px 0 var(--terracotta-dark);
+    }
+    .btn-primary:hover, .btn-primary:focus-visible { background: var(--terracotta-dark); }
+    .btn-secondary {
+      background: #fff;
+      color: var(--brown);
+      border: 2px solid var(--peach);
+    }
+    .btn-secondary:hover, .btn-secondary:focus-visible { border-color: var(--terracotta); }
+    .btn .icon { font-size: 1.3rem; }
+    .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .btn-row .btn { font-size: 1rem; padding: 14px 10px; gap: 6px; white-space: nowrap; }
+
+    /* ---------- Info-lista ---------- */
+    .info-list { list-style: none; display: grid; gap: 4px; }
+    .info-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 4px;
+      border-bottom: 1px dashed var(--peach);
+    }
+    .info-list li:last-child { border-bottom: none; }
+    .info-icon {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: var(--cream);
+      display: grid;
+      place-items: center;
+      font-size: 1.3rem;
+    }
+    .info-label {
+      font-size: .8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: var(--brown-soft);
+    }
+    .info-value { font-size: 1.08rem; font-weight: 700; }
+    .info-value a { color: var(--terracotta-dark); text-decoration: none; }
+
+    /* ---------- Gillar ---------- */
+    .likes { display: flex; flex-wrap: wrap; gap: 10px; }
+    .like {
+      background: var(--cream);
+      border: 2px solid var(--peach);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-weight: 700;
+      font-size: .98rem;
+    }
+
+    /* ---------- Tips ---------- */
+    .tips { list-style: none; display: grid; gap: 10px; }
+    .tips li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: #F3F8F1;
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+    .tips li span:first-child { font-size: 1.2rem; }
+
+    .thanks {
+      text-align: center;
+      font-family: "Fredoka", sans-serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--brown-soft);
+      padding: 8px 10px 0;
+    }
+
+    /* ---------- Sidfot ---------- */
+    footer {
+      text-align: center;
+      padding: 24px 16px calc(28px + env(safe-area-inset-bottom));
+      font-size: .92rem;
+      color: var(--brown-soft);
+    }
+    footer .logo-name { font-size: 1.3rem; }
+    footer a { font-weight: 800; color: var(--terracotta-dark); }
+
+    @media (min-width: 560px) {
+      .hero h1 { font-size: 2.4rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== SIDHUVUD: logga + TikTok-länk ===== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="#" aria-label="QR Tass – En tryggare väg hem">
+        <span class="logo-name">QR<span class="paw">🐾</span>Tass</span>
+        <span class="logo-slogan">En tryggare väg hem</span>
+      </a>
+      <!-- ÄNDRA: lägg in rätt TikTok-konto här -->
+      <a class="tiktok-btn" href="https://www.tiktok.com/@qrtass" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M16.5 3c.3 2.2 1.7 3.8 4 4v3.2c-1.5 0-2.9-.4-4-1.1v6.4c0 3.4-2.7 5.8-5.9 5.8S5 18.8 5 15.6c0-3.4 2.9-6 6.4-5.6v3.3c-1.4-.3-3 .7-3 2.3 0 1.3 1 2.4 2.4 2.4 1.5 0 2.5-1 2.5-2.7V3h3.2z"/>
+        </svg>
+        Köp halsband
+      </a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section class="card hero">
+      <span class="found-badge">🐾 Du har hittat mig!</span>
+
+      <div class="cat-portrait">
+        <!-- Byt gärna ut mot ett riktigt foto: <img src="smilla.jpg" alt="Smilla"> -->
+        <svg viewBox="0 0 200 200" role="img" aria-label="Illustration av katten Smilla">
+          <rect width="200" height="200" fill="#FFF6EC"/>
+          <!-- kropp -->
+          <ellipse cx="100" cy="185" rx="62" ry="42" fill="#E8A066"/>
+          <!-- öron -->
+          <path d="M48 80 L56 28 L88 60 Z" fill="#E8A066"/>
+          <path d="M152 80 L144 28 L112 60 Z" fill="#E8A066"/>
+          <path d="M57 70 L61 42 L80 61 Z" fill="#F7C9C0"/>
+          <path d="M143 70 L139 42 L120 61 Z" fill="#F7C9C0"/>
+          <!-- huvud -->
+          <ellipse cx="100" cy="100" rx="60" ry="54" fill="#EFAE74"/>
+          <!-- ränder -->
+          <path d="M100 48 q-4 12 0 22 q4 -10 0 -22" fill="#D98A4E"/>
+          <path d="M82 52 q-2 10 2 17" stroke="#D98A4E" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <path d="M118 52 q2 10 -2 17" stroke="#D98A4E" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <!-- nos-område -->
+          <ellipse cx="100" cy="120" rx="30" ry="22" fill="#FFF1E2"/>
+          <!-- ögon -->
+          <ellipse cx="77" cy="98" rx="10" ry="12" fill="#3E2A1E"/>
+          <ellipse cx="123" cy="98" rx="10" ry="12" fill="#3E2A1E"/>
+          <circle cx="80" cy="94" r="3.5" fill="#fff"/>
+          <circle cx="126" cy="94" r="3.5" fill="#fff"/>
+          <!-- kinder -->
+          <ellipse cx="62" cy="118" rx="9" ry="6" fill="#F4A99A" opacity=".7"/>
+          <ellipse cx="138" cy="118" rx="9" ry="6" fill="#F4A99A" opacity=".7"/>
+          <!-- nos + mun -->
+          <path d="M94 112 h12 l-6 7 z" fill="#D9737A"/>
+          <path d="M100 119 q-6 9 -13 4 M100 119 q6 9 13 4" stroke="#3E2A1E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- morrhår -->
+          <g stroke="#8A6552" stroke-width="2" stroke-linecap="round">
+            <line x1="68" y1="120" x2="38" y2="114"/><line x1="68" y1="126" x2="38" y2="128"/>
+            <line x1="132" y1="120" x2="162" y2="114"/><line x1="132" y1="126" x2="162" y2="128"/>
+          </g>
+          <!-- halsband -->
+          <path d="M52 146 q48 22 96 0" stroke="#6F9468" stroke-width="10" fill="none" stroke-linecap="round"/>
+          <!-- QR-bricka -->
+          <rect x="86" y="154" width="28" height="28" rx="5" fill="#fff" stroke="#5B3A29" stroke-width="2"/>
+          <g fill="#5B3A29">
+            <rect x="90" y="158" width="7" height="7"/><rect x="103" y="158" width="7" height="7"/>
+            <rect x="90" y="171" width="7" height="7"/><rect x="100" y="168" width="3" height="3"/>
+            <rect x="105" y="172" width="4" height="4"/><rect x="99" y="175" width="3" height="3"/>
+          </g>
+        </svg>
+      </div>
+
+      <h1>Hej! Jag heter <span>Smilla</span></h1>
+      <p class="lead">Jag har nog gått lite vilse. Snälla, hjälp mig hem till min familj – de saknar mig! 🧡</p>
+
+      <!-- ===== HUVUDKNAPPAR ===== -->
+      <div class="actions">
+        <!-- ÄNDRA: telefonnummer i internationellt format -->
+        <a class="btn btn-primary" href="tel:+46701234567">
+          <span class="icon">📞</span> Ring min ägare
+        </a>
+        <div class="btn-row">
+          <a class="btn btn-secondary" href="sms:+46701234567?&body=Hej!%20Jag%20har%20hittat%20din%20katt%20Smilla%20%F0%9F%90%BE">
+            <span class="icon">💬</span> SMS:a
+          </a>
+          <!-- ÄNDRA: adressen i länken -->
+          <a class="btn btn-secondary" href="https://www.google.com/maps/dir/?api=1&destination=Solrosv%C3%A4gen%207%2C%20Malm%C3%B6&travelmode=walking" target="_blank" rel="noopener">
+            <span class="icon">🏡</span> Vägen hem
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== OM MIG ===== -->
+    <section class="card" aria-labelledby="om-mig">
+      <h2 id="om-mig">🐱 Om mig</h2>
+      <ul class="info-list">
+        <li>
+          <span class="info-icon">🏷️</span>
+          <div><div class="info-label">Namn</div><div class="info-value">Smilla</div></div>
+        </li>
+        <li>
+          <span class="info-icon">🎂</span>
+          <div><div class="info-label">Ålder</div><div class="info-value">4 år</div></div>
+        </li>
+        <li>
+          <span class="info-icon">🧡</span>
+          <div><div class="info-label">Utseende</div><div class="info-value">Orangerandig, grönt halsband</div></div>
+        </li>
+        <li>
+          <span class="info-icon">😺</span>
+          <div><div class="info-label">Personlighet</div><div class="info-value">Snäll och nyfiken, lite blyg först</div></div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== ÄGARE ===== -->
+    <section class="card" aria-labelledby="agare">
+      <h2 id="agare">🏡 Min familj</h2>
+      <ul class="info-list">
+        <li>
+          <span class="info-icon">👤</span>
+          <div><div class="info-label">Ägare</div><div class="info-value">Anna Andersson</div></div>
+        </li>
+        <li>
+          <span class="info-icon">📍</span>
+          <div>
+            <div class="info-label">Hemadress</div>
+            <div class="info-value">Solrosvägen 7<br>212 34 Malmö</div>
+          </div>
+        </li>
+        <li>
+          <span class="info-icon">📞</span>
+          <div>
+            <div class="info-label">Telefon</div>
+            <div class="info-value"><a href="tel:+46701234567">070-123 45 67</a></div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ===== GILLAR ===== -->
+    <section class="card" aria-labelledby="gillar">
+      <h2 id="gillar">💛 Det här gillar jag</h2>
+      <div class="likes">
+        <span class="like">🐟 Tonfisk</span>
+        <span class="like">☀️ Soliga fönsterbrädor</span>
+        <span class="like">🧶 Garnnystan</span>
+        <span class="like">🤲 Kli bakom öronen</span>
+        <span class="like">📦 Kartonger</span>
+        <span class="like">😴 Långa tupplurar</span>
+      </div>
+    </section>
+
+    <!-- ===== TIPS ===== -->
+    <section class="card" aria-labelledby="tips">
+      <h2 id="tips">🌿 Så hjälper du mig bäst</h2>
+      <ul class="tips">
+        <li><span>🤫</span><span>Prata lugnt och låt mig nosa på din hand först.</span></li>
+        <li><span>💧</span><span>Ge mig gärna lite vatten – men ingen mjölk, den mår min mage dåligt av.</span></li>
+        <li><span>🚪</span><span>Håll mig inomhus eller i famnen tills min familj kommer.</span></li>
+      </ul>
+      <p class="thanks">Tack för att du hjälper mig hem! 🐾</p>
+    </section>
+
+  </main>
+
+  <!-- ===== SIDFOT ===== -->
+  <footer>
+    <div class="logo-name">QR<span class="paw">🐾</span>Tass</div>
+    <p>En tryggare väg hem</p>
+    <p style="margin-top:8px">Vill du också ha ett QR-halsband? Följ oss på
+      <a href="https://www.tiktok.com/@qrtass" target="_blank" rel="noopener">TikTok</a>!</p>
+  </footer>
+
+</body>
+</html>
