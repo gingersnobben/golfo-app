@@ -116,6 +116,25 @@ def hole_ref(t):
     return int(digits) if digits else None
 
 
+def hole_course(t):
+    """Vilken bana hålet hör till på en anläggning med flera banor (t.ex. course=TC på
+    Vasatorp). Ingen fast standard i OpenStreetMap – de vanligaste taggarna prövas."""
+    for key in ("course", "golf:course", "golf:course:name", "course_name"):
+        value = str(t.get(key, "")).strip()
+        if value:
+            return value[:40]
+    return None
+
+
+def hole_handicap(t):
+    """Hålets index (1–18), från handicap= eller stroke_index=."""
+    for key in ("handicap", "stroke_index", "golf:handicap"):
+        digits = "".join(ch for ch in str(t.get(key, "")) if ch.isdigit())
+        if digits and 1 <= int(digits) <= 36:
+            return int(digits)
+    return None
+
+
 def hole_par(t):
     digits = "".join(ch for ch in str(t.get("par", "")) if ch.isdigit())
     if not digits:
@@ -205,6 +224,11 @@ def build_region(path, out_dir, manifest):
         if ref is None or not coords:
             continue
         hole = {"ref": ref, "par": hole_par(t), "line": coords}
+        # Bannamn och index bara när de finns, så att filerna inte växer i onödan.
+        if hole_course(t):
+            hole["course"] = hole_course(t)
+        if hole_handicap(t):
+            hole["si"] = hole_handicap(t)
         mid = g.interpolate(0.5, normalized=True) if isinstance(g, LineString) else g.representative_point()
         course = smallest_containing(tree, courses, mid) if tree is not None else None
         if course:
